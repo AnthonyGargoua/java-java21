@@ -1,5 +1,7 @@
 package java17.ex01;
 
+import jdk.dynalink.support.ChainedCallSite;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 
 import java17.data.Data;
@@ -23,10 +25,10 @@ public class Lambda_01_Test {
     // tag::filter[]
     private List<Person> filter(List<Person> persons, PersonPredicate predicate) {
         List<Person> filteredPersons = new ArrayList<Person>();
-    	for (Person p: persons){
-        	if (predicate.test(p)){
-        		filteredPersons.add(p);
-        	}
+        for (Person p: persons){
+            if (predicate.test(p)){
+                filteredPersons.add(p);
+            }
         }
         return filteredPersons;
     }
@@ -40,7 +42,8 @@ public class Lambda_01_Test {
         List<Person> personList = Data.buildPersonList(100);
 
         // TODO result ne doit contenir que des personnes adultes (age >= 18)
-        List<Person> result = filter(personList, null);
+    //  List<Person> result = filter(personList, null);
+        List<Person> result = filter(personList, personne -> personne.getAge() >=18); // Je remplace null par une lambda qui teste la majorité (>=18)
 
         assert result.size() == 83;
 
@@ -57,8 +60,9 @@ public class Lambda_01_Test {
         List<Person> personList = Data.buildPersonList(100);
 
         // TODO result ne doit contenir que des personnes dont le prénom est "first_10"
-        List<Person> result = filter(personList, null);
-
+     // List<Person> result = filter(personList, null);
+        List<Person> result = filter(personList, personne -> personne.getFirstname().equals("first_10")); // Je remplace null par une lambda qui filtre par prénom.
+                                                    // 'personne' est l'objet testé, 'getFirstname()' récupère son prénom et '.equals()' vérifie qu'il vaut "first_10".
         assert result.size() == 1;
         assert result.get(0).getFirstname().equals("first_10");
 
@@ -75,7 +79,8 @@ public class Lambda_01_Test {
 
         // TODO result ne doit contenir que les personnes dont l'age est > 49 et dont le hash du mot de passe correspond à la valeur de la variable passwordSha512Hex
         // TODO Pour obtenir le hash d'un mot, utiliser la méthode DigestUtils.sha512Hex(mot)
-        List<Person> result = filter(personList, null);
+     // List<Person> result = filter(personList, null);
+        List<Person> result = filter(personList, personne -> personne.getAge() > 49 && DigestUtils.sha512Hex(personne.getPassword()).equals(passwordSha512Hex)); // Je remplace null par une lambda qui combine deux conditions : la majorité (> 49 ans) et (&&) la validité du mot de passe haché
 
         assert result.size() == 6;
         for (Person person : result) {

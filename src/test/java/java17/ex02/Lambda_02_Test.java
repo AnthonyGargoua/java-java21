@@ -38,7 +38,9 @@ public class Lambda_02_Test {
 
         // TODO transformer la liste de personnes en liste de comptes
         // TODO tous les objets comptes ont un solde à 100 par défaut
-        List<Account> result = map(personList, null);
+        // List<Account> result = map(personList, null);
+           List<Account> result = map(personList, personne -> new Account(personne, 100)); // Je passe une lambda qui reçoit la personne en paramètre et renvoie un 'new Account' lié à cette personne
+                                                // Person = Nom de ma classe et personne = Nom de ma variable (que j'appelle comme je veux)
 
         assert result.size() == personList.size();
         for (Account account : result) {
