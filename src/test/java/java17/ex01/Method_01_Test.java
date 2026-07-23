@@ -22,7 +22,8 @@ public class Method_01_Test {
         default int sumAge() {
             int total = 0;
             // Je parcours la liste retournée par findAll() pour additionner l'âge de chaque personne
-            for (Person person : findAll()) {
+            List<Person> listePersonnes = findAll();
+            for (Person person : listePersonnes) {
                 total += person.getAge();
             }
             return total;

@@ -44,7 +44,7 @@ public class Method_02_Test {
         public String format() {
             // J'utilise IDao.super.format() pour réutiliser le résultat de l'interface ("[_ persons]")
             // et je colle "DaoA" devant.
-            return "DaoA" + IDao.super.format();
+            return getClass().getSimpleName()+IDao.super.format();
         }
 
     }
