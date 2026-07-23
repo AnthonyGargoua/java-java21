@@ -42,8 +42,7 @@ public class Method_02_Test {
         // TODO l'implémentation réutilise la méthode format() de l'interface
         @Override
         public String format() {
-            // J'utilise IDao.super.format() pour réutiliser le résultat de l'interface ("[_ persons]")
-            // et je colle "DaoA" devant.
+            // J'utilise getClass().getSimpleName()+IDao.super.format() pour réutiliser le résultat de l'interface
             return getClass().getSimpleName()+IDao.super.format();
         }
 
